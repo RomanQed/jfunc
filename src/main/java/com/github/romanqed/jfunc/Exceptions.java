@@ -17,13 +17,15 @@ public final class Exceptions {
     }
 
     /**
+     *
      * @param func
-     * @return
      */
-    public static Throwable suppress(Function0 func) {
-        Throwable[] ret = new Throwable[1];
-        Exceptions.suppress(func, e -> ret[0] = e);
-        return ret[0];
+    public static void suppress(Function0 func) {
+        try {
+            func.run();
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -56,6 +58,10 @@ public final class Exceptions {
      * @return
      */
     public static <T> T suppress(Invokable0<T> func) {
-        return Exceptions.suppress(func, (T) null);
+        try {
+            return func.invoke();
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
     }
 }
