@@ -1,0 +1,94 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'signing'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+    compileJava.options.encoding('UTF-8')
+    withJavadocJar()
+    withSourcesJar()
+}
+
+group = 'com.github.romanqed'
+archivesBaseName = 'jfunc'
+version = System.getenv('RELEASE_VERSION') ?: '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.9.2'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.9.2'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    from sourceSets.main.output
+    from sourceSets.main.allJava
+}
+
+signing {
+    sign publishing.publications
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            // Specify artifacts
+            artifactId = archivesBaseName
+            groupId = group
+            version = version
+            from components.java
+            // Configure pom
+            pom {
+                name.set('jeflect')
+                description.set('A generalized lightweight set of lambda interfaces and some implementations ' +
+                        'that adds the necessary functionality that is not available in the standard sdk.')
+                url.set('https://github.com/RomanQed/jfunc')
+                organization {
+                    name.set('com.github.romanqed')
+                    url.set('https://github.com/RomanQed/')
+                }
+                issueManagement {
+                    system.set('GitHub')
+                    url.set('https://github.com/RomanQed/jfunc/issues')
+                }
+                licenses {
+                    license {
+                        name.set('Apache License 2.0')
+                        url.set('https://github.com/RomanQed/jfunc/blob/main/LICENSE')
+                    }
+                }
+                scm {
+                    url.set('https://github.com/RomanQed/jfunc')
+                    connection.set('scm:https://github.com/RomanQed/jfunc.git')
+                    developerConnection.set('scm:https://github.com/RomanQed/jfunc.git')
+                }
+                developers {
+                    developer {
+                        id.set('RomanQed')
+                        name.set('Roman Bakaldin')
+                        email.set('gbakaldin@gmail.com')
+                    }
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            credentials {
+                username System.getenv('SONATYPE_USERNAME')
+                password System.getenv('SONATYPE_PASSWORD')
+            }
+        }
+    }
+}
