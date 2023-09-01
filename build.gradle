@@ -48,7 +48,7 @@ publishing {
             from components.java
             // Configure pom
             pom {
-                name.set('jeflect')
+                name.set('jfunc')
                 description.set('A generalized lightweight set of lambda interfaces and some implementations ' +
                         'that adds the necessary functionality that is not available in the standard sdk.')
                 url.set('https://github.com/RomanQed/jfunc')
