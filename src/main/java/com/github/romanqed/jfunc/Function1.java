@@ -3,51 +3,72 @@ package com.github.romanqed.jfunc;
 import java.util.Objects;
 
 /**
- * Represents a function that accepts a single parameter and does not return a value.
+ * Represents a function that takes one parameter and returns a value.
  *
  * <p>This is a
  * <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/FunctionalInterface.html">functional interface</a>
- * whose functional method is {@link #run(Object)}.
+ * whose functional method is {@link #invoke(Object)}.
  *
  * @param <T> the type of the function parameter
+ * @param <R> the type of the return value
  */
 @FunctionalInterface
-public interface Function1<T> {
+public interface Function1<T, R> {
 
     /**
-     * Creates a combined {@link Function1} containing the calls of
-     * the passed interfaces inside in the specified order.
+     * Returns a function that always returns its input argument.
      *
-     * @param first  the function that will be executed first, must be non-null
-     * @param second the function that will be executed second, must be non-null
-     * @return a composed {@link Function1}
-     * @throws NullPointerException if first or second function is null
+     * @param <T> the type of the input and output objects to the function
+     * @return a function that always returns its input argument
      */
-    static <T> Function1<T> combine(Function1<T> first, Function1<T> second) {
-        Objects.requireNonNull(first);
-        Objects.requireNonNull(second);
-        return (value) -> {
-            first.run(value);
-            second.run(value);
-        };
+    static <T> Function1<T, T> identity() {
+        return value -> value;
     }
 
     /**
-     * Main functional method of interface, takes one parameter and performs assumed action.
+     * Main functional method of interface, takes one parameter, performs assumed action and produce result.
      *
      * @param t function parameter
+     * @return produced result
+     * @throws Throwable if problems occur during execution
      */
-    void run(T t) throws Throwable;
+    R invoke(T t) throws Throwable;
 
     /**
-     * Creates a combined {@link Function1} containing first a call to this function,
-     * and then a call to the specified function.
+     * Returns a composed function that first applies this function to
+     * its input, and then applies the {@code after} function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
      *
-     * @param func the function that will be executed after this function
-     * @return a composed {@link Function1}
-     * @throws NullPointerException if passed function is null
+     * @param <V>   the type of output of the {@code after} function, and of the
+     *              composed function
+     * @param after the function to apply after this function is applied
+     * @return a composed function that first applies this function and then
+     * applies the {@code after} function
+     * @throws NullPointerException if after is null
+     * @see #compose(Function1)
      */
-    default Function1<T> andThen(Function1<T> func) {
-        return Function1.combine(this, func);
+    default <V> Function1<T, V> andThen(Function1<? super R, ? extends V> after) {
+        Objects.requireNonNull(after);
+        return (T t) -> after.invoke(invoke(t));
+    }
+
+    /**
+     * Returns a composed function that first applies the {@code before}
+     * function to its input, and then applies this function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <V>    the type of input to the {@code before} function, and to the
+     *               composed function
+     * @param before the function to apply before this function is applied
+     * @return a composed function that first applies the {@code before}
+     * function and then applies this function
+     * @throws NullPointerException if before is null
+     * @see #andThen(Function1)
+     */
+    default <V> Function1<V, R> compose(Function1<? super V, ? extends T> before) {
+        Objects.requireNonNull(before);
+        return (V v) -> invoke(before.invoke(v));
     }
 }

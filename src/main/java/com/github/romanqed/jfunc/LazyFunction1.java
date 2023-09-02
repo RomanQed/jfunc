@@ -3,16 +3,17 @@ package com.github.romanqed.jfunc;
 import java.util.Objects;
 
 /**
- * A container that provides lazy initialization, implements {@link Invokable0}.
+ * A container that provides lazy initialization, implements {@link LazyFunction1}.
  *
- * @param <T> the type of results supplied by this invokable
+ * @param <T> the type of the function parameter
+ * @param <R> the type of the result of the function
  */
-public final class LazyInvokable0<T> implements Invokable0<T> {
+public final class LazyFunction1<T, R> implements Function1<T, R> {
     private final Object lock;
-    private final Invokable0<T> body;
-    private volatile T value;
+    private final Function1<T, R> body;
+    private volatile R value;
 
-    public LazyInvokable0(Invokable0<T> body) {
+    public LazyFunction1(Function1<T, R> body) {
         this.body = Objects.requireNonNull(body);
         this.lock = new Object();
     }
@@ -20,15 +21,16 @@ public final class LazyInvokable0<T> implements Invokable0<T> {
     /**
      * Gets the result stored in the buffer, or, if the buffer is empty, calls the wrapped lambda interface.
      *
+     * @param t the function parameter
      * @return a result
      * @throws Throwable if wrapped lambda throws exception
      */
     @Override
-    public T invoke() throws Throwable {
+    public R invoke(T t) throws Throwable {
         if (value == null) {
             synchronized (lock) {
                 if (value == null) {
-                    value = body.invoke();
+                    value = body.invoke(t);
                 }
             }
         }
