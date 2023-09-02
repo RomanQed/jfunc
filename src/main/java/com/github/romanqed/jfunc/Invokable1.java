@@ -3,31 +3,50 @@ package com.github.romanqed.jfunc;
 import java.util.Objects;
 
 /**
- * @param <T>
- * @param <R>
+ * Represents a function that takes one parameter and returns a value.
+ *
+ * <p>This is a
+ * <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/FunctionalInterface.html">functional interface</a>
+ * whose functional method is {@link #invoke(Object)}.
+ *
+ * @param <T> the type of the function parameter
+ * @param <R> the type of the return value
  */
 @FunctionalInterface
 public interface Invokable1<T, R> {
 
     /**
-     * @param <T>
-     * @return
+     * Returns a function that always returns its input argument.
+     *
+     * @param <T> the type of the input and output objects to the function
+     * @return a function that always returns its input argument
      */
     static <T> Invokable1<T, T> identity() {
         return value -> value;
     }
 
     /**
-     * @param t
-     * @return
-     * @throws Throwable
+     * Main functional method of interface, takes one parameter, performs assumed action and produce result.
+     *
+     * @param t function parameter
+     * @return produced result
+     * @throws Throwable if problems occur during execution
      */
     R invoke(T t) throws Throwable;
 
     /**
-     * @param after
-     * @param <V>
-     * @return
+     * Returns a composed function that first applies this function to
+     * its input, and then applies the {@code after} function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <V>   the type of output of the {@code after} function, and of the
+     *              composed function
+     * @param after the function to apply after this function is applied
+     * @return a composed function that first applies this function and then
+     * applies the {@code after} function
+     * @throws NullPointerException if after is null
+     * @see #compose(Invokable1)
      */
     default <V> Invokable1<T, V> andThen(Invokable1<? super R, ? extends V> after) {
         Objects.requireNonNull(after);
@@ -35,9 +54,18 @@ public interface Invokable1<T, R> {
     }
 
     /**
-     * @param before
-     * @param <V>
-     * @return
+     * Returns a composed function that first applies the {@code before}
+     * function to its input, and then applies this function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <V>    the type of input to the {@code before} function, and to the
+     *               composed function
+     * @param before the function to apply before this function is applied
+     * @return a composed function that first applies the {@code before}
+     * function and then applies this function
+     * @throws NullPointerException if before is null
+     * @see #andThen(Invokable1)
      */
     default <V> Invokable1<V, R> compose(Invokable1<? super V, ? extends T> before) {
         Objects.requireNonNull(before);

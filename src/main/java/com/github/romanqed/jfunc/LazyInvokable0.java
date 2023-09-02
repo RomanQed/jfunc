@@ -3,7 +3,9 @@ package com.github.romanqed.jfunc;
 import java.util.Objects;
 
 /**
- * @param <T>
+ * A container that provides lazy initialization, implements {@link Invokable0}.
+ *
+ * @param <T> the type of results supplied by this invokable
  */
 public final class LazyInvokable0<T> implements Invokable0<T> {
     private final Object lock;
@@ -16,8 +18,10 @@ public final class LazyInvokable0<T> implements Invokable0<T> {
     }
 
     /**
-     * @return
-     * @throws Throwable
+     * Gets the result stored in the buffer, or, if the buffer is empty, calls the wrapped lambda interface.
+     *
+     * @return a result
+     * @throws Throwable if wrapped lambda throws exception
      */
     @Override
     public T invoke() throws Throwable {

@@ -6,7 +6,7 @@ import java.util.function.Function;
 /**
  * A container that provides lazy initialization, implements {@link Function}.
  *
- * @param <T> the type of the input to the function
+ * @param <T> the type of the function parameter
  * @param <R> the type of the result of the function
  */
 public final class LazyFunction<T, R> implements Function<T, R> {
@@ -20,8 +20,10 @@ public final class LazyFunction<T, R> implements Function<T, R> {
     }
 
     /**
-     * @param t the function argument
-     * @return
+     * Gets the result stored in the buffer, or, if the buffer is empty, calls the wrapped lambda interface.
+     *
+     * @param t the function parameter
+     * @return a result
      */
     @Override
     public R apply(T t) {

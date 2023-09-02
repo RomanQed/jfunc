@@ -19,7 +19,9 @@ public final class LazySupplier<T> implements Supplier<T> {
     }
 
     /**
-     * @return
+     * Gets the result stored in the buffer, or, if the buffer is empty, calls the wrapped lambda interface.
+     *
+     * @return a result
      */
     @Override
     public T get() {
