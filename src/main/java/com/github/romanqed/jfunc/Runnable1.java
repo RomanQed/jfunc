@@ -20,6 +20,7 @@ public interface Runnable1<T> {
      *
      * @param first  the function that will be executed first, must be non-null
      * @param second the function that will be executed second, must be non-null
+     * @param <T>    type of functions parameter
      * @return a composed {@link Runnable1}
      * @throws NullPointerException if first or second function is null
      */
@@ -36,6 +37,7 @@ public interface Runnable1<T> {
      * Main functional method of interface, takes one parameter and performs assumed action.
      *
      * @param t function parameter
+     * @throws Throwable if problems occur during execution
      */
     void run(T t) throws Throwable;
 
