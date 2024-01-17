@@ -11,6 +11,7 @@ package com.github.romanqed.jfunc;
  * @param <T2> the type of the second function parameter
  * @param <R>  the type of the return value
  */
+@FunctionalInterface
 public interface Function2<T1, T2, R> {
 
     /**

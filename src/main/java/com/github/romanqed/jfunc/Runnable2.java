@@ -10,6 +10,7 @@ package com.github.romanqed.jfunc;
  * @param <T1> the type of the first function parameter
  * @param <T2> the type of the second function parameter
  */
+@FunctionalInterface
 public interface Runnable2<T1, T2> {
 
     /**
