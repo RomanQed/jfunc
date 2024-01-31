@@ -30,6 +30,8 @@ public final class Exceptions {
     public static void suppress(Runnable0 func) {
         try {
             func.run();
+        } catch (Error | RuntimeException e) {
+            throw e;
         } catch (Throwable e) {
             throw new RuntimeException(e);
         }
@@ -62,6 +64,8 @@ public final class Exceptions {
     public static <T> T suppress(Function0<T> func) {
         try {
             return func.invoke();
+        } catch (Error | RuntimeException e) {
+            throw e;
         } catch (Throwable e) {
             throw new RuntimeException(e);
         }
