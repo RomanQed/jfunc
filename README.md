@@ -7,7 +7,7 @@ is not available in the standard sdk.
 
 To install it, you will need:
 
-* java 11+
+* Java 11+
 * Maven/Gradle
 
 ### Features
