@@ -29,11 +29,6 @@ test {
     useJUnitPlatform()
 }
 
-jar {
-    from sourceSets.main.output
-    from sourceSets.main.allJava
-}
-
 signing {
     sign publishing.publications
 }
