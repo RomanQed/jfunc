@@ -1,4 +1,4 @@
-# jfunc [![maven-central](https://img.shields.io/maven-central/v/com.github.romanqed/jfunc?color=blue)](https://repo1.maven.org/maven2/com/github/romanqed/jfunc/)
+# jfunc [![jfunc](https://img.shields.io/maven-central/v/com.github.romanqed/jfunc?strategy=releaseProperty&style=for-the-badge&label=jfunc&color=blue)](https://repo1.maven.org/maven2/com/github/romanqed/jfunc)
 
 A generalized lightweight set of lambda interfaces and some implementations that adds the necessary functionality that
 is not available in the standard sdk.
