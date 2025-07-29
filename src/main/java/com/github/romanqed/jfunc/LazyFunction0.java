@@ -12,6 +12,13 @@ public final class LazyFunction0<T> implements Function0<T> {
     private final Function0<T> body;
     private volatile T value;
 
+    /**
+     * Constructs a new {@link LazyFunction0} with the given computation body.
+     * The result will be computed at most once and then cached.
+     *
+     * @param body the function to be evaluated lazily
+     * @throws NullPointerException if {@code body} is null
+     */
     public LazyFunction0(Function0<T> body) {
         this.body = Objects.requireNonNull(body);
         this.lock = new Object();

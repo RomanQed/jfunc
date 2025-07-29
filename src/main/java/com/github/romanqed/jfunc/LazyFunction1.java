@@ -13,6 +13,14 @@ public final class LazyFunction1<T, R> implements Function1<T, R> {
     private final Function1<T, R> body;
     private volatile R value;
 
+    /**
+     * Constructs a new {@link LazyFunction1} with the given computation body.
+     * The result will be computed once for the first input, and reused for all subsequent calls.
+     * Note: the input parameter is ignored on subsequent invocations.
+     *
+     * @param body the function to be evaluated lazily
+     * @throws NullPointerException if {@code body} is null
+     */
     public LazyFunction1(Function1<T, R> body) {
         this.body = Objects.requireNonNull(body);
         this.lock = new Object();
