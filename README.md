@@ -13,27 +13,29 @@ To install it, you will need:
 ### Features
 
 * Common set of functional interfaces
-* Double-check lazy suppliers
-* Wrappers for suppressing checked exceptions
+* Double-check thread-safe lazy suppliers
+* Wrappers for suppressing and silent throwing checked exceptions
 
 ## Installing
 
 ### Gradle dependency
 
-```Groovy
+```groovy
 dependencies {
-    implementation group: 'com.github.romanqed', name: 'jfunc', version: 'LATEST'
+    implementation group: 'com.github.romanqed', name: 'jfunc', version: '1.2.0'
 }
 ```
 
 ### Maven dependency
 
-```
-<dependency>
-    <groupId>com.github.romanqed</groupId>
-    <artifactId>jfunc</artifactId>
-    <version>LATEST</version>
-</dependency>
+```xml
+<dependencies>
+    <dependency>
+        <groupId>com.github.romanqed</groupId>
+        <artifactId>jfunc</artifactId>
+        <version>1.2.0</version>
+    </dependency>
+</dependencies>
 ```
 
 ## Built With
