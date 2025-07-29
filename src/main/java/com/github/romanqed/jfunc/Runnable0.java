@@ -22,12 +22,7 @@ public interface Runnable0 {
      * @throws NullPointerException if first or second function is null
      */
     static Runnable0 combine(Runnable0 first, Runnable0 second) {
-        Objects.requireNonNull(first);
-        Objects.requireNonNull(second);
-        return () -> {
-            first.run();
-            second.run();
-        };
+        return first.andThen(second);
     }
 
     /**
@@ -46,6 +41,10 @@ public interface Runnable0 {
      * @throws NullPointerException if passed function is null
      */
     default Runnable0 andThen(Runnable0 func) {
-        return Runnable0.combine(this, func);
+        Objects.requireNonNull(func);
+        return () -> {
+            run();
+            func.run();
+        };
     }
 }

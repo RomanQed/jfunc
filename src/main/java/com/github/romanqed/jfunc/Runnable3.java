@@ -1,5 +1,7 @@
 package com.github.romanqed.jfunc;
 
+import java.util.Objects;
+
 /**
  * Represents a function that accepts three parameters and does not return a value.
  *
@@ -15,6 +17,21 @@ package com.github.romanqed.jfunc;
 public interface Runnable3<T1, T2, T3> {
 
     /**
+     * Returns a composed {@link Runnable3} that performs this operation followed by the {@code second}.
+     *
+     * @param first the first operation to apply
+     * @param second the second operation to apply after the first
+     * @param <T1> the type of the first input
+     * @param <T2> the type of the second input
+     * @param <T3> the type of the third input
+     * @return the composed {@link Runnable3}
+     * @throws NullPointerException if either argument is null
+     */
+    static <T1, T2, T3> Runnable3<T1, T2, T3> combine(Runnable3<T1, T2, T3> first, Runnable3<T1, T2, T3> second) {
+        return first.andThen(second);
+    }
+
+    /**
      * Main functional method of interface, takes three parameters and performs assumed action.
      *
      * @param t1 first function parameter
@@ -23,4 +40,19 @@ public interface Runnable3<T1, T2, T3> {
      * @throws Throwable if problems occur during execution
      */
     void run(T1 t1, T2 t2, T3 t3) throws Throwable;
+
+    /**
+     * Returns a composed {@link Runnable3} that performs this operation followed by the given one.
+     *
+     * @param func the operation to perform after this one
+     * @return a composed {@link Runnable3}
+     * @throws NullPointerException if {@code func} is null
+     */
+    default Runnable3<T1, T2, T3> andThen(Runnable3<T1, T2, T3> func) {
+        Objects.requireNonNull(func);
+        return (t1, t2, t3) -> {
+            run(t1, t2, t3);
+            func.run(t1, t2, t3);
+        };
+    }
 }

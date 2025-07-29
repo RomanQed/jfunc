@@ -25,12 +25,7 @@ public interface Runnable1<T> {
      * @throws NullPointerException if first or second function is null
      */
     static <T> Runnable1<T> combine(Runnable1<T> first, Runnable1<T> second) {
-        Objects.requireNonNull(first);
-        Objects.requireNonNull(second);
-        return (value) -> {
-            first.run(value);
-            second.run(value);
-        };
+        return first.andThen(second);
     }
 
     /**
@@ -50,6 +45,10 @@ public interface Runnable1<T> {
      * @throws NullPointerException if passed function is null
      */
     default Runnable1<T> andThen(Runnable1<T> func) {
-        return Runnable1.combine(this, func);
+        Objects.requireNonNull(func);
+        return t -> {
+            run(t);
+            func.run(t);
+        };
     }
 }

@@ -10,10 +10,8 @@ public final class LazyTest extends Assertions {
     @Test
     public void testFunction() {
         var func = new LazyFunction<Integer, Integer>(e -> e + 1);
-        assertAll(
-                () -> assertEquals(1, func.apply(0)),
-                () -> assertEquals(1, func.apply(0))
-        );
+        assertEquals(1, func.apply(0));
+        assertEquals(1, func.apply(0));
     }
 
     @Test
@@ -24,12 +22,10 @@ public final class LazyTest extends Assertions {
     }
 
     @Test
-    public void testFunction1() {
+    public void testFunction1() throws Throwable {
         var func = new LazyFunction1<Integer, Integer>(e -> e + 1);
-        assertAll(
-                () -> assertEquals(1, func.invoke(0)),
-                () -> assertEquals(1, func.invoke(0))
-        );
+        assertEquals(1, func.invoke(0));
+        assertEquals(1, func.invoke(0));
     }
 
     @Test
