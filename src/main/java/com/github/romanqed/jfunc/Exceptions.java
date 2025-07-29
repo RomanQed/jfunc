@@ -6,6 +6,8 @@ import java.util.function.Function;
  * Utility class containing methods that allow wrapping function calls with checked exceptions.
  */
 public final class Exceptions {
+    private Exceptions() {
+    }
 
     /**
      * Rethrows the given {@link Throwable} as an unchecked exception.
