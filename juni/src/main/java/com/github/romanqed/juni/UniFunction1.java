@@ -17,7 +17,12 @@ import java.util.concurrent.ExecutionException;
 public interface UniFunction1<T, R> extends Uni, Function1<T, R>, AsyncFunction1<T, R> {
 
     /**
-     * Wraps a synchronous function into a {@code UniFunction1}.
+     * Creates a synchronous unified function from the given {@link Function1}.
+     *
+     * @param func the function to wrap
+     * @param <T>  the input type
+     * @param <R>  the result type
+     * @return a unified function that executes synchronously
      */
     static <T, R> UniFunction1<T, R> of(Function1<T, R> func) {
         return new UniFunction1<>() {
@@ -47,7 +52,12 @@ public interface UniFunction1<T, R> extends Uni, Function1<T, R>, AsyncFunction1
     }
 
     /**
-     * Wraps an asynchronous function into a {@code UniFunction1}.
+     * Creates an asynchronous unified function from the given {@link AsyncFunction1}.
+     *
+     * @param func the function to wrap
+     * @param <T>  the input type
+     * @param <R>  the result type
+     * @return a unified function that executes asynchronously
      */
     static <T, R> UniFunction1<T, R> of(AsyncFunction1<T, R> func) {
         return new UniFunction1<>() {

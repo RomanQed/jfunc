@@ -17,7 +17,12 @@ import java.util.concurrent.ExecutionException;
 public interface UniRunnable2<T1, T2> extends Uni, Runnable2<T1, T2>, AsyncRunnable2<T1, T2> {
 
     /**
-     * Wraps a synchronous runnable into a {@code UniRunnable2}.
+     * Creates a synchronous unified runnable from the given {@link Runnable2}.
+     *
+     * @param func the runnable to wrap
+     * @param <T1> the type of the first argument
+     * @param <T2> the type of the second argument
+     * @return a unified runnable that executes synchronously
      */
     static <T1, T2> UniRunnable2<T1, T2> of(Runnable2<T1, T2> func) {
         return new UniRunnable2<>() {
@@ -46,7 +51,12 @@ public interface UniRunnable2<T1, T2> extends Uni, Runnable2<T1, T2>, AsyncRunna
     }
 
     /**
-     * Wraps an asynchronous runnable into a {@code UniRunnable2}.
+     * Creates an asynchronous unified runnable from the given {@link AsyncRunnable2}.
+     *
+     * @param func the runnable to wrap
+     * @param <T1> the type of the first argument
+     * @param <T2> the type of the second argument
+     * @return a unified runnable that executes asynchronously
      */
     static <T1, T2> UniRunnable2<T1, T2> of(AsyncRunnable2<T1, T2> func) {
         return new UniRunnable2<>() {

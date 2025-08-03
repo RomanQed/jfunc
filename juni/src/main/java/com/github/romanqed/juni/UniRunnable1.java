@@ -16,7 +16,11 @@ import java.util.concurrent.ExecutionException;
 public interface UniRunnable1<T> extends Uni, Runnable1<T>, AsyncRunnable1<T> {
 
     /**
-     * Wraps a synchronous runnable into a {@code UniRunnable1}.
+     * Creates a synchronous unified runnable from the given {@link Runnable1}.
+     *
+     * @param func the runnable to wrap
+     * @param <T>  the input type
+     * @return a unified runnable that executes synchronously
      */
     static <T> UniRunnable1<T> of(Runnable1<T> func) {
         return new UniRunnable1<>() {
@@ -45,7 +49,11 @@ public interface UniRunnable1<T> extends Uni, Runnable1<T>, AsyncRunnable1<T> {
     }
 
     /**
-     * Wraps an asynchronous runnable into a {@code UniRunnable1}.
+     * Creates an asynchronous unified runnable from the given {@link AsyncRunnable1}.
+     *
+     * @param func the runnable to wrap
+     * @param <T>  the input type
+     * @return a unified runnable that executes asynchronously
      */
     static <T> UniRunnable1<T> of(AsyncRunnable1<T> func) {
 
