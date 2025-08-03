@@ -24,7 +24,9 @@ public final class ExceptionsTest {
         assertTrue(called.get());
 
         IOException ex = new IOException("fail");
-        IOException thrown = assertThrows(IOException.class, () -> Exceptions.silent(() -> { throw ex; }));
+        IOException thrown = assertThrows(IOException.class, () -> Exceptions.silent(() -> {
+            throw ex;
+        }));
         assertSame(ex, thrown);
     }
 
@@ -36,7 +38,9 @@ public final class ExceptionsTest {
 
         IOException ex = new IOException("fail");
         IOException thrown = assertThrows(IOException.class, () ->
-                Exceptions.silent((String s) -> { throw ex; }, "test"));
+                Exceptions.silent((String s) -> {
+                    throw ex;
+                }, "test"));
         assertSame(ex, thrown);
     }
 
@@ -48,7 +52,9 @@ public final class ExceptionsTest {
 
         IOException ex = new IOException("fail");
         IOException thrown = assertThrows(IOException.class, () ->
-                Exceptions.silent((Runnable2<String, String>) (a, b) -> { throw ex; }, "x", "y"));
+                Exceptions.silent((Runnable2<String, String>) (a, b) -> {
+                    throw ex;
+                }, "x", "y"));
         assertSame(ex, thrown);
     }
 
@@ -58,7 +64,9 @@ public final class ExceptionsTest {
 
         IOException ex = new IOException("fail");
         IOException thrown = assertThrows(IOException.class, () ->
-                Exceptions.silent(() -> { throw ex; }));
+                Exceptions.silent(() -> {
+                    throw ex;
+                }));
         assertSame(ex, thrown);
     }
 
@@ -68,7 +76,9 @@ public final class ExceptionsTest {
 
         IOException ex = new IOException("fail");
         IOException thrown = assertThrows(IOException.class, () ->
-                Exceptions.silent((String s) -> { throw ex; }, "test"));
+                Exceptions.silent((String s) -> {
+                    throw ex;
+                }, "test"));
         assertSame(ex, thrown);
     }
 
@@ -78,20 +88,27 @@ public final class ExceptionsTest {
 
         IOException ex = new IOException("fail");
         IOException thrown = assertThrows(IOException.class, () ->
-                Exceptions.silent((Runnable2<String, String>) (a, b) -> { throw ex; }, "a", "b"));
+                Exceptions.silent((Runnable2<String, String>) (a, b) -> {
+                    throw ex;
+                }, "a", "b"));
         assertSame(ex, thrown);
     }
 
     @Test
     void testSuppressRunnable0() {
-        assertDoesNotThrow(() -> Exceptions.suppress(() -> {}));
+        assertDoesNotThrow(() -> Exceptions.suppress(() -> {
+        }));
 
         RuntimeException rex = new RuntimeException("runtime");
-        RuntimeException thrown = assertThrows(RuntimeException.class, () -> Exceptions.suppress(() -> { throw rex; }));
+        RuntimeException thrown = assertThrows(RuntimeException.class, () -> Exceptions.suppress(() -> {
+            throw rex;
+        }));
         assertSame(rex, thrown);
 
         IOException ex = new IOException("fail");
-        RuntimeException wrapped = assertThrows(RuntimeException.class, () -> Exceptions.suppress(() -> { throw ex; }));
+        RuntimeException wrapped = assertThrows(RuntimeException.class, () -> Exceptions.suppress(() -> {
+            throw ex;
+        }));
         assertEquals(ex, wrapped.getCause());
     }
 
@@ -103,7 +120,9 @@ public final class ExceptionsTest {
 
         IOException ex = new IOException("fail");
         RuntimeException wrapped = assertThrows(RuntimeException.class, () ->
-                Exceptions.suppress((Runnable1<Boolean>) (b) -> { throw ex; }, false));
+                Exceptions.suppress((Runnable1<Boolean>) (b) -> {
+                    throw ex;
+                }, false));
         assertEquals(ex, wrapped.getCause());
     }
 
@@ -115,7 +134,9 @@ public final class ExceptionsTest {
 
         IOException ex = new IOException("fail");
         RuntimeException wrapped = assertThrows(RuntimeException.class, () ->
-                Exceptions.suppress((Runnable2<String, String>) (a, b) -> { throw ex; }, "1", "2"));
+                Exceptions.suppress((Runnable2<String, String>) (a, b) -> {
+                    throw ex;
+                }, "1", "2"));
         assertEquals(ex, wrapped.getCause());
     }
 
@@ -124,7 +145,9 @@ public final class ExceptionsTest {
         assertEquals(123, Exceptions.suppress(() -> 123));
 
         IOException ex = new IOException("fail");
-        RuntimeException wrapped = assertThrows(RuntimeException.class, () -> Exceptions.suppress(() -> { throw ex; }));
+        RuntimeException wrapped = assertThrows(RuntimeException.class, () -> Exceptions.suppress(() -> {
+            throw ex;
+        }));
         assertEquals(ex, wrapped.getCause());
     }
 
@@ -134,7 +157,9 @@ public final class ExceptionsTest {
 
         IOException ex = new IOException("fail");
         RuntimeException wrapped = assertThrows(RuntimeException.class, () ->
-                Exceptions.suppress((Runnable1<String>) (s) -> { throw ex; }, "q"));
+                Exceptions.suppress((Runnable1<String>) (s) -> {
+                    throw ex;
+                }, "q"));
         assertEquals(ex, wrapped.getCause());
     }
 
@@ -144,25 +169,33 @@ public final class ExceptionsTest {
 
         IOException ex = new IOException("fail");
         RuntimeException wrapped = assertThrows(RuntimeException.class, () ->
-                Exceptions.suppress((Runnable2<String, String>) (a, b) -> { throw ex; }, "a", "b"));
+                Exceptions.suppress((Runnable2<String, String>) (a, b) -> {
+                    throw ex;
+                }, "a", "b"));
         assertEquals(ex, wrapped.getCause());
     }
 
     @Test
     void testSuppressWithHandlerFunction0() {
         assertEquals("ok", Exceptions.suppress(() -> "ok", ex -> "fallback"));
-        assertEquals("fallback", Exceptions.suppress(() -> { throw new IOException(); }, ex -> "fallback"));
+        assertEquals("fallback", Exceptions.suppress(() -> {
+            throw new IOException();
+        }, ex -> "fallback"));
     }
 
     @Test
     void testSuppressWithHandlerFunction1() {
         assertEquals("x", Exceptions.suppress((s) -> s, "x", ex -> "fallback"));
-        assertEquals("fallback", Exceptions.suppress((s) -> { throw new IOException(); }, "x", ex -> "fallback"));
+        assertEquals("fallback", Exceptions.suppress((s) -> {
+            throw new IOException();
+        }, "x", ex -> "fallback"));
     }
 
     @Test
     void testSuppressWithHandlerFunction2() {
         assertEquals("xy", Exceptions.suppress((a, b) -> a + b, "x", "y", ex -> "fallback"));
-        assertEquals("fallback", Exceptions.suppress((a, b) -> { throw new IOException(); }, "x", "y", ex -> "fallback"));
+        assertEquals("fallback", Exceptions.suppress((a, b) -> {
+            throw new IOException();
+        }, "x", "y", ex -> "fallback"));
     }
 }

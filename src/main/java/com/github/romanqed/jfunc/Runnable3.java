@@ -19,11 +19,11 @@ public interface Runnable3<T1, T2, T3> {
     /**
      * Returns a composed {@link Runnable3} that performs this operation followed by the {@code second}.
      *
-     * @param first the first operation to apply
+     * @param first  the first operation to apply
      * @param second the second operation to apply after the first
-     * @param <T1> the type of the first input
-     * @param <T2> the type of the second input
-     * @param <T3> the type of the third input
+     * @param <T1>   the type of the first input
+     * @param <T2>   the type of the second input
+     * @param <T3>   the type of the third input
      * @return the composed {@link Runnable3}
      * @throws NullPointerException if either argument is null
      */

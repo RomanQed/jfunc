@@ -18,10 +18,10 @@ public interface Runnable2<T1, T2> {
     /**
      * Returns a composed {@link Runnable2} that performs this operation followed by the {@code second}.
      *
-     * @param first the first operation to apply
+     * @param first  the first operation to apply
      * @param second the second operation to apply after the first
-     * @param <T1> the type of the first input
-     * @param <T2> the type of the second input
+     * @param <T1>   the type of the first input
+     * @param <T2>   the type of the second input
      * @return the composed {@link Runnable2}
      * @throws NullPointerException if either argument is null
      */
