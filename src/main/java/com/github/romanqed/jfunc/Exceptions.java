@@ -13,7 +13,7 @@ public final class Exceptions {
      * Rethrows the given {@link Throwable} as an unchecked exception.
      *
      * @param throwable the throwable to rethrow
-     * @param <T> a generic type representing the throwable
+     * @param <T>       a generic type representing the throwable
      * @throws T always throws the provided throwable
      */
     @SuppressWarnings("unchecked")
@@ -38,8 +38,8 @@ public final class Exceptions {
      * Executes the given {@link Runnable1}, rethrowing any thrown exception as-is.
      *
      * @param func the operation to execute
-     * @param t the input parameter
-     * @param <T> the input type
+     * @param t    the input parameter
+     * @param <T>  the input type
      */
     public static <T> void silent(Runnable1<T> func, T t) {
         try {
@@ -53,8 +53,8 @@ public final class Exceptions {
      * Executes the given {@link Runnable2}, rethrowing any thrown exception as-is.
      *
      * @param func the operation to execute
-     * @param t1 the first input
-     * @param t2 the second input
+     * @param t1   the first input
+     * @param t2   the second input
      * @param <T1> type of the first input
      * @param <T2> type of the second input
      */
@@ -70,7 +70,7 @@ public final class Exceptions {
      * Executes the given {@link Function0}, rethrowing any thrown exception as-is.
      *
      * @param func the function to execute
-     * @param <R> return type of the function
+     * @param <R>  return type of the function
      * @return the result of the function
      */
     public static <R> R silent(Function0<R> func) {
@@ -87,9 +87,9 @@ public final class Exceptions {
      * Executes the given {@link Function1}, rethrowing any thrown exception as-is.
      *
      * @param func the function to execute
-     * @param t the input parameter
-     * @param <T> type of input
-     * @param <R> type of result
+     * @param t    the input parameter
+     * @param <T>  type of input
+     * @param <R>  type of result
      * @return the result of the function
      */
     public static <T, R> R silent(Function1<T, R> func, T t) {
@@ -106,11 +106,11 @@ public final class Exceptions {
      * Executes the given {@link Function2}, rethrowing any thrown exception as-is.
      *
      * @param func the function to execute
-     * @param t1 first input
-     * @param t2 second input
+     * @param t1   first input
+     * @param t2   second input
      * @param <T1> type of first input
      * @param <T2> type of second input
-     * @param <R> result type
+     * @param <R>  result type
      * @return the result of the function
      */
     public static <T1, T2, R> R silent(Function2<T1, T2, R> func, T1 t1, T2 t2) {
@@ -143,8 +143,8 @@ public final class Exceptions {
      * Executes the given {@link Runnable1}, wrapping any thrown checked exception in a {@link RuntimeException}.
      *
      * @param func the operation to execute
-     * @param t the input parameter
-     * @param <T> the input type
+     * @param t    the input parameter
+     * @param <T>  the input type
      * @throws RuntimeException if an exception is thrown during execution
      */
     public static <T> void suppress(Runnable1<T> func, T t) {
@@ -161,8 +161,8 @@ public final class Exceptions {
      * Executes the given {@link Runnable2}, wrapping any thrown checked exception in a {@link RuntimeException}.
      *
      * @param func the operation to execute
-     * @param t1 the first input
-     * @param t2 the second input
+     * @param t1   the first input
+     * @param t2   the second input
      * @param <T1> the type of the first input
      * @param <T2> the type of the second input
      * @throws RuntimeException if an exception is thrown during execution
@@ -196,11 +196,11 @@ public final class Exceptions {
     /**
      * Executes the given {@link Function1} and handles any thrown exception using the provided fallback function.
      *
-     * @param func the function to execute
-     * @param t the input parameter
+     * @param func   the function to execute
+     * @param t      the input parameter
      * @param except the fallback function to handle thrown exceptions
-     * @param <T> the input type
-     * @param <R> the result type
+     * @param <T>    the input type
+     * @param <R>    the result type
      * @return the result of the function, or the result of {@code except} if an exception occurs
      */
     public static <T, R> R suppress(Function1<T, R> func, T t, Function<Throwable, R> except) {
@@ -214,13 +214,13 @@ public final class Exceptions {
     /**
      * Executes the given {@link Function2} and handles any thrown exception using the provided fallback function.
      *
-     * @param func the function to execute
-     * @param t1 the first input
-     * @param t2 the second input
+     * @param func   the function to execute
+     * @param t1     the first input
+     * @param t2     the second input
      * @param except the fallback function to handle thrown exceptions
-     * @param <T1> the type of the first input
-     * @param <T2> the type of the second input
-     * @param <R> the result type
+     * @param <T1>   the type of the first input
+     * @param <T2>   the type of the second input
+     * @param <R>    the result type
      * @return the result of the function, or the result of {@code except} if an exception occurs
      */
     public static <T1, T2, R> R suppress(Function2<T1, T2, R> func, T1 t1, T2 t2, Function<Throwable, R> except) {
@@ -253,9 +253,9 @@ public final class Exceptions {
      * Executes the given {@link Function1}, wrapping any thrown checked exception in a {@link RuntimeException}.
      *
      * @param func the function to execute
-     * @param t the input parameter
-     * @param <T> the input type
-     * @param <R> the result type
+     * @param t    the input parameter
+     * @param <T>  the input type
+     * @param <R>  the result type
      * @return the result of the function
      * @throws RuntimeException if an exception is thrown during execution
      */
@@ -273,11 +273,11 @@ public final class Exceptions {
      * Executes the given {@link Function2}, wrapping any thrown checked exception in a {@link RuntimeException}.
      *
      * @param func the function to execute
-     * @param t1 the first input
-     * @param t2 the second input
+     * @param t1   the first input
+     * @param t2   the second input
      * @param <T1> the type of the first input
      * @param <T2> the type of the second input
-     * @param <R> the result type
+     * @param <R>  the result type
      * @return the result of the function
      * @throws RuntimeException if an exception is thrown during execution
      */

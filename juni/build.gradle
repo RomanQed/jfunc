@@ -4,7 +4,6 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'signing'
-    id 'io.github.gradle-nexus.publish-plugin' version '2.0.0'
 }
 
 java {
@@ -16,16 +15,23 @@ java {
 }
 
 group = 'com.github.romanqed'
-archivesBaseName = 'jfunc'
-version = System.getenv('JFUNC_VERSION') ?: '1.0.0'
+archivesBaseName = 'juni'
+version = System.getenv('JUNI_VERSION') ?: '1.0.0'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    // Tests
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.9.2'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.9.2'
+    testImplementation project(':')
+    testImplementation project(':jsync')
+    // JFunc dependency
+    compileOnly project(':')
+    // JSync dependency
+    compileOnly project(':jsync')
 }
 
 test {
@@ -45,7 +51,7 @@ jar {
                 'Build-Date': new SimpleDateFormat("yyyy-MM-dd").format(date),
                 'Build-Time': new SimpleDateFormat("HH:mm:ss.SSSZ").format(date),
                 'Built-By': 'Roman Bakaldin',
-                'Bundle-Name': 'Java Function',
+                'Bundle-Name': 'Java Uni Functions',
                 'Bundle-Version': archiveVersion,
                 'Bundle-SymbolicName': archivesBaseName,
                 'Implementation-Title': archivesBaseName,
@@ -73,8 +79,7 @@ publishing {
             // Configure pom
             pom {
                 name.set(archivesBaseName)
-                description.set('A generalized lightweight set of lambda interfaces and some implementations ' +
-                        'that adds the necessary functionality that is not available in the standard sdk.')
+                description.set('Java unified functions.')
                 url.set('https://github.com/RomanQed/jfunc')
                 organization {
                     name.set('com.github.romanqed')
@@ -103,17 +108,6 @@ publishing {
                     }
                 }
             }
-        }
-    }
-}
-
-nexusPublishing {
-    repositories {
-        sonatype {
-            username = centralUsername
-            password = centralPassword
-            nexusUrl.set(uri("https://ossrh-staging-api.central.sonatype.com/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://central.sonatype.com/repository/maven-snapshots/"))
         }
     }
 }
