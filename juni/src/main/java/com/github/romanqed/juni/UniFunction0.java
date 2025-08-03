@@ -7,8 +7,21 @@ import com.github.romanqed.jsync.AsyncFunction0;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * A unified interface representing a zero-argument function with return value,
+ * supporting both synchronous and asynchronous execution.
+ *
+ * @param <T> the result type
+ */
 public interface UniFunction0<T> extends Uni, Function0<T>, AsyncFunction0<T> {
 
+    /**
+     * Wraps a synchronous function into a {@code UniFunction0}.
+     *
+     * @param func the sync function
+     * @param <T>  the return type
+     * @return a unified implementation
+     */
     static <T> UniFunction0<T> of(Function0<T> func) {
         return new UniFunction0<>() {
 
@@ -36,6 +49,13 @@ public interface UniFunction0<T> extends Uni, Function0<T>, AsyncFunction0<T> {
         };
     }
 
+    /**
+     * Wraps an asynchronous function into a {@code UniFunction0}.
+     *
+     * @param func the async function
+     * @param <T>  the return type
+     * @return a unified implementation
+     */
     static <T> UniFunction0<T> of(AsyncFunction0<T> func) {
         return new UniFunction0<>() {
 

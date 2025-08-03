@@ -7,8 +7,15 @@ import com.github.romanqed.jsync.AsyncRunnable0;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * A unified interface representing a zero-argument runnable,
+ * supporting both synchronous and asynchronous execution.
+ */
 public interface UniRunnable0 extends Uni, Runnable0, AsyncRunnable0 {
 
+    /**
+     * Wraps a synchronous runnable into a {@code UniRunnable0}.
+     */
     static UniRunnable0 of(Runnable0 func) {
         return new UniRunnable0() {
 
@@ -35,6 +42,9 @@ public interface UniRunnable0 extends Uni, Runnable0, AsyncRunnable0 {
         };
     }
 
+    /**
+     * Wraps an asynchronous runnable into a {@code UniRunnable0}.
+     */
     static UniRunnable0 of(AsyncRunnable0 func) {
         return new UniRunnable0() {
 

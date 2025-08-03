@@ -7,8 +7,18 @@ import com.github.romanqed.jsync.AsyncRunnable2;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * A unified interface representing a binary runnable,
+ * supporting both synchronous and asynchronous execution.
+ *
+ * @param <T1> the type of the first argument
+ * @param <T2> the type of the second argument
+ */
 public interface UniRunnable2<T1, T2> extends Uni, Runnable2<T1, T2>, AsyncRunnable2<T1, T2> {
 
+    /**
+     * Wraps a synchronous runnable into a {@code UniRunnable2}.
+     */
     static <T1, T2> UniRunnable2<T1, T2> of(Runnable2<T1, T2> func) {
         return new UniRunnable2<>() {
 
@@ -35,6 +45,9 @@ public interface UniRunnable2<T1, T2> extends Uni, Runnable2<T1, T2>, AsyncRunna
         };
     }
 
+    /**
+     * Wraps an asynchronous runnable into a {@code UniRunnable2}.
+     */
     static <T1, T2> UniRunnable2<T1, T2> of(AsyncRunnable2<T1, T2> func) {
         return new UniRunnable2<>() {
 

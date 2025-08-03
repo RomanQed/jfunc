@@ -7,8 +7,19 @@ import com.github.romanqed.jsync.AsyncFunction2;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * A unified interface representing a binary function with return value,
+ * supporting both synchronous and asynchronous execution.
+ *
+ * @param <T1> the type of the first argument
+ * @param <T2> the type of the second argument
+ * @param <R>  the result type
+ */
 public interface UniFunction2<T1, T2, R> extends Uni, Function2<T1, T2, R>, AsyncFunction2<T1, T2, R> {
 
+    /**
+     * Wraps a synchronous function into a {@code UniFunction2}.
+     */
     static <T1, T2, R> UniFunction2<T1, T2, R> of(Function2<T1, T2, R> func) {
         return new UniFunction2<>() {
 
@@ -36,6 +47,9 @@ public interface UniFunction2<T1, T2, R> extends Uni, Function2<T1, T2, R>, Asyn
         };
     }
 
+    /**
+     * Wraps an asynchronous function into a {@code UniFunction2}.
+     */
     static <T1, T2, R> UniFunction2<T1, T2, R> of(AsyncFunction2<T1, T2, R> func) {
         return new UniFunction2<>() {
 
