@@ -19,7 +19,9 @@ public final class UniInterfacesTest {
         Function0<String> syncFunc = () -> "sync";
         var uni = UniFunction0.of(syncFunc);
 
+        assertTrue(uni.isSync());
         assertFalse(uni.isAsync());
+        assertFalse(uni.isUni());
         assertEquals("sync", uni.invoke());
         assertEquals("sync", uni.invokeAsync().get());
     }
@@ -29,7 +31,9 @@ public final class UniInterfacesTest {
         AsyncFunction0<String> asyncFunc = () -> CompletableFuture.completedFuture("async");
         var uni = UniFunction0.of(asyncFunc);
 
+        assertFalse(uni.isSync());
         assertTrue(uni.isAsync());
+        assertFalse(uni.isUni());
         assertEquals("async", uni.invoke());
         assertEquals("async", uni.invokeAsync().get());
     }
@@ -41,7 +45,9 @@ public final class UniInterfacesTest {
         Function1<Integer, String> syncFunc = Object::toString;
         var uni = UniFunction1.of(syncFunc);
 
+        assertTrue(uni.isSync());
         assertFalse(uni.isAsync());
+        assertFalse(uni.isUni());
         assertEquals("123", uni.invoke(123));
         assertEquals("123", uni.invokeAsync(123).get());
     }
@@ -51,7 +57,9 @@ public final class UniInterfacesTest {
         AsyncFunction1<Integer, String> asyncFunc = t -> CompletableFuture.completedFuture(t.toString());
         var uni = UniFunction1.of(asyncFunc);
 
+        assertFalse(uni.isSync());
         assertTrue(uni.isAsync());
+        assertFalse(uni.isUni());
         assertEquals("456", uni.invoke(456));
         assertEquals("456", uni.invokeAsync(456).get());
     }
@@ -63,7 +71,9 @@ public final class UniInterfacesTest {
         Function2<Integer, Integer, Integer> syncFunc = Integer::sum;
         var uni = UniFunction2.of(syncFunc);
 
+        assertTrue(uni.isSync());
         assertFalse(uni.isAsync());
+        assertFalse(uni.isUni());
         assertEquals(7, uni.invoke(3, 4));
         assertEquals(7, uni.invokeAsync(3, 4).get());
     }
@@ -73,7 +83,9 @@ public final class UniInterfacesTest {
         AsyncFunction2<Integer, Integer, Integer> asyncFunc = (a, b) -> CompletableFuture.completedFuture(a + b);
         var uni = UniFunction2.of(asyncFunc);
 
+        assertFalse(uni.isSync());
         assertTrue(uni.isAsync());
+        assertFalse(uni.isUni());
         assertEquals(10, uni.invoke(4, 6));
         assertEquals(10, uni.invokeAsync(4, 6).get());
     }
@@ -87,7 +99,9 @@ public final class UniInterfacesTest {
 
         var uni = UniRunnable0.of(sync);
 
+        assertTrue(uni.isSync());
         assertFalse(uni.isAsync());
+        assertFalse(uni.isUni());
         uni.run();
         assertTrue(flag.get());
 
@@ -106,7 +120,9 @@ public final class UniInterfacesTest {
 
         var uni = UniRunnable0.of(async);
 
+        assertFalse(uni.isSync());
         assertTrue(uni.isAsync());
+        assertFalse(uni.isUni());
         uni.run();
         assertTrue(flag.get());
 
@@ -124,7 +140,9 @@ public final class UniInterfacesTest {
 
         var uni = UniRunnable1.of(sync);
 
+        assertTrue(uni.isSync());
         assertFalse(uni.isAsync());
+        assertFalse(uni.isUni());
         uni.run("test");
         assertTrue(flag.get());
 
@@ -143,7 +161,9 @@ public final class UniInterfacesTest {
 
         var uni = UniRunnable1.of(async);
 
+        assertFalse(uni.isSync());
         assertTrue(uni.isAsync());
+        assertFalse(uni.isUni());
         uni.run("test");
         assertTrue(flag.get());
 
@@ -161,7 +181,9 @@ public final class UniInterfacesTest {
 
         var uni = UniRunnable2.of(sync);
 
+        assertTrue(uni.isSync());
         assertFalse(uni.isAsync());
+        assertFalse(uni.isUni());
         uni.run(1, 2);
         assertTrue(flag.get());
 
@@ -180,7 +202,9 @@ public final class UniInterfacesTest {
 
         var uni = UniRunnable2.of(async);
 
+        assertFalse(uni.isSync());
         assertTrue(uni.isAsync());
+        assertFalse(uni.isUni());
         uni.run(1, 2);
         assertTrue(flag.get());
 
